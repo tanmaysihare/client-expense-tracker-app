@@ -10,16 +10,19 @@ function Login() {
   };
   const submitHandler = async (data) => {
     try {
-      await axios.post("http://localhost:3001/user/signup", data);
-      console.log("posted");
+      const response = await axios.post("http://localhost:3001/user/login", data);
+      alert(response.data.message);
     } catch (error) {
-      if (error.response && error.response.status === 200) {
-        alert("User successfully login");
-      } else {
-        alert(error.message);
+      if(error.response.status === 401){
+        alert(error.response.data.message);
+      }else{
+        alert(error.response.data.message);
       }
+       // console.error("Error:", error);
+    
     }
   };
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string().required().email(),
     password: Yup.string().required().min(6),
