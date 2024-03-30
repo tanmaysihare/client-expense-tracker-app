@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React,{useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "sonner";
-
+import ExpenseList from "./ExpenseList";
 
 function Homepage() {
-    const [expenses, setExpenses] = useState([]);
-    useEffect(()=> {
-        axios.get("http://localhost:3001/expense").then((res)=>{
-            setExpenses(res.data);
-        }).catch(err=> toast.error(err))
-    },[]);
+  const [expenses, setExpenses] = useState([]);
   const initialValues = {
     money: "",
     description: "",
@@ -27,27 +22,15 @@ function Homepage() {
     }catch(error){
         toast.error(error);
     }
-    
-  };
-  const deleteHandler = async(id)=>{
-
-    try{
-        const response = await axios.delete(`http://localhost:3001/expense/${id}`);
-        toast.warning("Expense Delete",response.status);
-        axios.get("http://localhost:3001/expense").then((res)=>{
-            setExpenses(res.data);
-        }).catch(err=> toast.error(err))
-    }catch(error){
-        toast.error(error);
-    }
-  };
+   };
   const validationSchema = Yup.object().shape({
     money: Yup.number().required(),
     description: Yup.string().required().min(3),
     category: Yup.string().required(),
   });
   return (
-    <div className="container is-fluid ">
+    <div className="grid">
+    <div className="container is-fluid cell">
       <Formik
         initialValues={initialValues}
         onSubmit={submitHandler}
@@ -127,29 +110,10 @@ function Homepage() {
           </Form>
         </div>
       </Formik>
-    <div className="container is-fluid my-6 ">
-        {expenses.map((value,key)=>{
-            return(
-                <div className=" grid ml-6 pl-6 box">
-                    <div className="cell">
-                        <label className="label">Money</label>
-                        <div>{value.money}</div>
-                    </div>
-                    <div className="cell">
-                        <label className="label">Description</label>
-                       <div>{value.description}</div> 
-                    </div>
-                    <div className="cell">
-                        <label className="label">Category</label>
-                        <div>{value.category}</div>
-                    </div>
-                    <div className="cell is-col-from-end-1"> <button className="delete is-large mt-3" onClick={()=> deleteHandler(value.id)}></button></div>
-                   
-                </div>
-            )
-        })}
-    </div>
-
+     </div>
+     <div className="cell container is-fluid mt-6 pt-4 px-1">
+      <ExpenseList expenses={expenses} setExpenses={setExpenses}/>
+     </div>
      </div>
   );
 }

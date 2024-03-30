@@ -14,9 +14,9 @@ function App() {
   return (
     <div className="">
       <Navbar/>
-      <Toaster richColors closeButton position='top-right' toastOptions={{style:{padding:'1rem'}}}/>
+      <Toaster richColors closeButton position='top-left' toastOptions={{style:{padding:'1rem',marginTop:'4rem'}}}/>
     <Switch>
-      <Route path='/signup'><Signup/></Route>
+      <Route path='/signup' exact><Signup/></Route>
       <Route path='/login'><Login/></Route>
       <Route path='/homepage'><Homepage/></Route>
     </Switch>
@@ -25,3 +25,4 @@ function App() {
 }
 
 export default App;
+ 
