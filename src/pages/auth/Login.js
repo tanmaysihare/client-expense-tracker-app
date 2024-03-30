@@ -2,82 +2,103 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { toast } from "sonner";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+
+
+
 
 function Login() {
+ const history = useHistory();
   const initialValues = {
     email: "",
     password: "",
   };
   const submitHandler = async (data) => {
     try {
-      const response = await axios.post("http://localhost:3001/user/login", data);
-      alert(response.data.message);
+      const response = await axios.post(
+        "http://localhost:3001/user/login",
+        data
+      );
+      toast.success(response.data.message);
+       history.push('/homepage'); 
     } catch (error) {
-      if(error.response.status === 401){
-        alert(error.response.data.message);
-      }else{
-        alert(error.response.data.message);
+      if (error.response.status === 401) {
+        toast.error(error.response.data.message);
+        
+      } else {
+        toast.err(error.response.data.message);
+        
       }
-       // console.error("Error:", error);
-    
+      // console.error("Error:", error);
     }
   };
-  
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().required().email(),
     password: Yup.string().required().min(6),
   });
   return (
-    <div className="min-h-screen py-6 flex flex-col items-center justify-center sm:py-12">
+    <div>
+    
       <Formik
         initialValues={initialValues}
         onSubmit={submitHandler}
         validationSchema={validationSchema}
       >
-        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-          <Form className="text-white relative px-4 py-8 bg-indigo-400 shadow-lg sm:rounded-3xl sm:p-20">
-            <div className="text-center pb-4">
-              <h1 className="text-3xl uppercase">Login Form</h1>
-              <p className="text-gray-300">Please Enter Correct Detail</p>
+        <div className="field is-grouped is-grouped-centered mt-6 pt-6">
+          <Form>
+            <div className="field has-text-centered">
+              <h1 className="has-text-success is-size-2 is-uppercase">
+                Login Form
+              </h1>
+              <p className="is-size-6 ">Please Enter Correct Detail</p>
             </div>
+            <div className="field">
+              <label className="label">User Email</label>
+              <div className="control">
+                <Field
+                  type="email"
+                  id="signupFormEmail"
+                  name="email"
+                  placeholder="Correct Email"
+                  className="input"
+                />
+              </div>
 
-            <label>User Email</label>
-
-            <Field
-              type="email"
-              id="signupFormEmail"
-              name="email"
-              placeholder="Correct Email"
-              className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <ErrorMessage
-              name="email"
-              component="span"
-              className="text-red-800 ml-4"
-            />
-            <label>Password</label>
-
-            <Field
-              type="password"
-              id="signupFormPassword"
-              name="password"
-              placeholder="Password"
-              className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <ErrorMessage
-              name="password"
-              component="span"
-              className="text-red-800 ml-4"
-            />
-            <button
-              type="submit"
-              className="shadow bg-blue-800 hover:bg-white hover:text-blue-800 hover:font-extrabold py-2 px-4 rounded text-white font-bold focus:outline-none focus:shadow-outline"
-            >
-              SUBMIT
-            </button>
-            <a href="/signup" className="ml-8 border-l pl-8">
-              New User - Signup Now
-            </a>
+              <ErrorMessage
+                name="email"
+                component="span"
+                className="help is-danger"
+              />
+            </div>
+            <div className="field">
+              <label className="label">Password</label>
+              <div className="control">
+                <Field
+                  type="password"
+                  id="signupFormPassword"
+                  name="password"
+                  placeholder="Password"
+                  className="input"
+                />
+              </div>
+              <ErrorMessage
+                name="password"
+                component="span"
+                className="help is-danger"
+              />
+            </div>
+            <div className="field is-grouped">
+              <button type="submit" className="button is-primary">
+                SUBMIT
+              </button>
+              <label className="label">
+                <a href="/signup" className="label ml-1 mt-2">
+                  New User - Signup Now
+                </a>
+              </label>
+            </div>
           </Form>
         </div>
       </Formik>
