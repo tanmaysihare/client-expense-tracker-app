@@ -14,12 +14,15 @@ function Homepage() {
   };
   const submitHandler = async (data) => {
     try{
-        const response = await axios.post("http://localhost:3001/expense",data);
+        const token = localStorage.getItem("token");
+        const response = await axios.post("http://localhost:3001/expense",data,{headers:{"access-token":token}});
+    
         toast.success(response.data.message);
-        axios.get("http://localhost:3001/expense").then((res)=>{
+        axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
             setExpenses(res.data);
         }).catch(err=> toast.error(err))
     }catch(error){
+      console.log(error);
         toast.error(error);
     }
    };

@@ -8,7 +8,7 @@ import Homepage from './pages/home/Homepage';
 
 
 function App() {
-  
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   
   
   return (
@@ -16,9 +16,9 @@ function App() {
       <Navbar/>
       <Toaster richColors closeButton position='top-left' toastOptions={{style:{padding:'1rem',marginTop:'4rem'}}}/>
     <Switch>
-      <Route path='/signup' exact><Signup/></Route>
+      <Route path='/signup'><Signup/></Route>
       <Route path='/login'><Login/></Route>
-      <Route path='/homepage'><Homepage/></Route>
+    {isLoggedIn && <Route path='/homepage'><Homepage/></Route>}  
     </Switch>
     </div>
   );

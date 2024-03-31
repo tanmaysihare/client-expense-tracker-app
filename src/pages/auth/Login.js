@@ -22,6 +22,8 @@ function Login() {
       );
       toast.success(response.data.message);
        history.push('/homepage'); 
+       localStorage.setItem("token",response.data.authenticate);
+       localStorage.setItem("isLoggedIn",response.data.success);
     } catch (error) {
       if (error.response.status === 401) {
         toast.error(error.response.data.message);

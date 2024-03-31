@@ -3,9 +3,10 @@ import { toast } from "sonner";
 import axios from "axios";
 
 function ExpenseList(props) {
-    
+    const token = localStorage.getItem("token");
     useEffect(()=> {
-        axios.get("http://localhost:3001/expense").then((res)=>{
+        
+        axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
             
            props.setExpenses(res.data);
         }).catch(err=> toast.error(err))
@@ -14,9 +15,9 @@ function ExpenseList(props) {
     const deleteHandler = async(id)=>{
 
         try{
-            const response = await axios.delete(`http://localhost:3001/expense/${id}`);
+            const response = await axios.delete(`http://localhost:3001/expense/${id}`,{headers:{"access-token":token}});
             toast.warning("Expense Delete",response.status);
-            axios.get("http://localhost:3001/expense").then((res)=>{
+            axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
                 props.setExpenses(res.data);
             }).catch(err=> toast.error(err))
         }catch(error){
