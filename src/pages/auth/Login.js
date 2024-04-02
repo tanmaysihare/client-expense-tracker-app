@@ -4,11 +4,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "sonner";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
-
-
+import {useDispatch} from 'react-redux';
+import { AuthActions } from "../../store/AuthSlice";
+import { buyPremium } from "../../store/PremiumMember";
 
 function Login() {
+  const dispatch = useDispatch();
  const history = useHistory();
   const initialValues = {
     email: "",
@@ -22,6 +23,8 @@ function Login() {
       );
       toast.success(response.data.message);
        history.push('/homepage'); 
+       dispatch(AuthActions.login(response.data.authenticate));
+       dispatch(buyPremium(response.data.isPremium));
        localStorage.setItem("token",response.data.authenticate);
        localStorage.setItem("isLoggedIn",response.data.success);
     } catch (error) {

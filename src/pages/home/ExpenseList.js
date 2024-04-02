@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { toast } from "sonner";
 import axios from "axios";
-
+import { useSelector } from 'react-redux';
 function ExpenseList(props) {
-    const token = localStorage.getItem("token");
+    const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
     useEffect(()=> {
         
         axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
@@ -29,7 +29,7 @@ function ExpenseList(props) {
        <div className="container is-fluid my-6 ">
         {props.expenses.map((value,key)=>{
             return(
-                <div className=" grid ml-6 pl-6 box">
+                <div className=" grid ml-6 pl-6 box" key={key}>
                     <div className="cell">
                         <label className="label">Money</label>
                         <div>{value.money}</div>
