@@ -3,11 +3,13 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthActions } from '../store/AuthSlice';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 function Navbar() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state)=>state.Auth.isAuthenticated) || localStorage.getItem("isLoggedIn");
   const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
+  const isPremium = useSelector((state)=>state.premium_membership.isPremium) || localStorage.getItem("isPremium");
   const logoutHandler = ()=>{
     dispatch(AuthActions.logout());
     localStorage.removeItem("token");
@@ -55,6 +57,7 @@ function Navbar() {
         <div className='navbar-start'>
           <div className='navbar-item'>
           {isLoggedIn && <a href="/homepage" className='navbar-link'>Home</a>} 
+          {isPremium && <Link to="/leader_board" className='navbar-link'>Leader Board</Link>}
           </div>
         </div>
         <div className='navbar-end'>
@@ -69,7 +72,7 @@ function Navbar() {
              {isLoggedIn && <a href="/login" className='button is-danger' onClick={logoutHandler}>
                 <strong>Log out</strong>
               </a>} 
-              {isLoggedIn && <button onClick={buyPremiumHandler} className='button is-light'>
+              {isLoggedIn && !isPremium &&<button onClick={buyPremiumHandler} className='button is-light'>
                 <strong>Buy Premium</strong>
               </button>}
             </div>

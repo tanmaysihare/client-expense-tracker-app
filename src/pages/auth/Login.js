@@ -27,6 +27,7 @@ function Login() {
        dispatch(buyPremium(response.data.isPremium));
        localStorage.setItem("token",response.data.authenticate);
        localStorage.setItem("isLoggedIn",response.data.success);
+       localStorage.setItem("isPremium",response.data.isPremium);
     } catch (error) {
       if (error.response.status === 401) {
         toast.error(error.response.data.message);
