@@ -11,12 +11,12 @@ import LeaderBoard from './pages/leaderBoard/LeaderBoard';
 
 function App() {
   const isLoggedIn = useSelector((state)=>state.Auth.isAuthenticated) || localStorage.getItem("isLoggedIn");
-  const isPremium = useSelector((state)=>state.premium_membership.isPremium) || localStorage.getItem("isPremium");
-  console.log(isPremium);
+  const isPremium = useSelector((state)=>state.premium_membership.isPremium) 
+ 
   return (
     <div className="">
       <Navbar/>
-      <Toaster richColors closeButton position='top-left' toastOptions={{style:{padding:'1rem',marginTop:'4rem'}}}/>
+      <Toaster richColors closeButton position='top-right' toastOptions={{style:{padding:'1rem',marginTop:'4rem'}}}/>
     <Switch>
       <Route path='/' exact><WelcomePage/></Route>
       <Route path='/signup'><Signup/></Route>
