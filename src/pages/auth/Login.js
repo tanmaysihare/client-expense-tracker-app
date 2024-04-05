@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "sonner";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 import {useDispatch} from 'react-redux';
 import { AuthActions } from "../../store/AuthSlice";
 import { buyPremium } from "../../store/PremiumMember";
@@ -52,7 +52,7 @@ function Login() {
         onSubmit={submitHandler}
         validationSchema={validationSchema}
       >
-        <div className="field is-grouped is-grouped-centered mt-6 pt-6">
+        <div className="box column is-half is-offset-one-quarter is-grouped is-grouped-centered mt-6 pt-6">
           <Form>
             <div className="field has-text-centered">
               <h1 className="has-text-success is-size-2 is-uppercase">
@@ -95,15 +95,24 @@ function Login() {
                 className="help is-danger"
               />
             </div>
-            <div className="field is-grouped">
-              <button type="submit" className="button is-primary">
+            <div className=" grid">
+              <div className=" cell"> 
+                <button type="submit" className="button is-primary">
                 SUBMIT
               </button>
+              </div>
+             <div className=" cell"> 
               <label className="label">
-                <a href="/signup" className="label ml-1 mt-2">
+                <div className="grid">
+                  <div className="cell"> <Link to="/forget_password" className="label mt-2">Forget Password</Link></div>
+                  <div className="cell"><Link to="/signup" className="label mt-2 ">
                   New User - Signup Now
-                </a>
+                </Link></div></div>
+                
+                
               </label>
+              </div>
+            
             </div>
           </Form>
         </div>

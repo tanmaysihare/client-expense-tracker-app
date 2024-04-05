@@ -8,11 +8,13 @@ import Homepage from './pages/home/Homepage';
 import WelcomePage from './pages/home/WelcomePage';
 import {useSelector} from 'react-redux';
 import LeaderBoard from './pages/leaderBoard/LeaderBoard';
+import ForgetPassword from './pages/auth/ForgetPassword';
+
 
 function App() {
   const isLoggedIn = useSelector((state)=>state.Auth.isAuthenticated) || localStorage.getItem("isLoggedIn");
   const isPremium = useSelector((state)=>state.premium_membership.isPremium) 
- 
+ console.log("isPremium",isPremium);
   return (
     <div className="">
       <Navbar/>
@@ -23,6 +25,7 @@ function App() {
       <Route path='/login'><Login/></Route>
     {isLoggedIn && <Route path='/homepage'><Homepage/></Route>}  
     {isPremium && <Route path='/leader_board'><LeaderBoard/></Route>}
+    <Route path='/forget_password'><ForgetPassword/></Route>
     </Switch>
     </div>
   );

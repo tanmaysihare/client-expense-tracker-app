@@ -48,6 +48,7 @@ function Navbar() {
       };
 
       const rzp1 = new window.Razorpay(options);
+     
       rzp1.open();
       toast.success("Payment Successful");
     } catch (error) {
@@ -55,7 +56,7 @@ function Navbar() {
       toast.error(error);
     }
   };
-console.log(isPremium);
+
   return (
     <nav
       className="navbar has-background-danger-15"

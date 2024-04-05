@@ -1,12 +1,21 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "sonner";
 import ExpenseList from "./ExpenseList";
-
+import { useSelector,useDispatch } from "react-redux";
+import { buyPremium } from "../../store/PremiumMember";
 function Homepage() {
   const [expenses, setExpenses] = useState([]);
+  const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    axios.get("http://localhost:3001/orders/transaction_status",{headers:{"access-token":token}}).then((res)=>{
+        dispatch(buyPremium(res.data.isPremium));
+    })
+  },[dispatch,token]);
+ 
   const initialValues = {
     money: "",
     description: "",
@@ -14,7 +23,7 @@ function Homepage() {
   };
   const submitHandler = async (data) => {
     try{
-        const token = localStorage.getItem("token");
+        
         const response = await axios.post("http://localhost:3001/expense",data,{headers:{"access-token":token}});
     
         toast.success(response.data.message);
