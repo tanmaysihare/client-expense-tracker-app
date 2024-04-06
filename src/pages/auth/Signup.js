@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "sonner";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
 function Signup() {
   const history = useHistory();
@@ -32,13 +32,13 @@ function Signup() {
     password: Yup.string().required().min(6),
   });
   return (
-    <div>
+    <div >
       <Formik
         initialValues={initialValues}
         onSubmit={submitHandler}
         validationSchema={validationSchema}
       >
-        <div className="field is-grouped is-grouped-centered mt-6 pt-6">
+        <div className="box column is-half is-offset-one-quarter is-grouped is-grouped-centered mt-6 pt-6">
           <Form>
             <div className="field has-text-centered">
               <h1 className="has-text-success is-size-2 is-uppercase">
@@ -97,15 +97,20 @@ function Signup() {
                 className="help is-danger"
               />
             </div>
-            <div className="field is-grouped">
-              <button type="submit" className="button">
+            <div className="grid">
+              <div className="cell">
+                <button type="submit" className="button is-success">
                 SUBMIT
               </button>
-              <label className="label">
-                <a href="/login" className="label mt-2 ml-1">
-                  Click Hare to Login
-                </a>
+              </div>
+              <div className="cell has-text-right mr-6">
+                <label className="label">
+                <Link to="/login" className="label mt-2 ml-1">
+                New User - Click Hare to Login
+                </Link>
               </label>
+              </div>
+              
             </div>
           </Form>
         </div>

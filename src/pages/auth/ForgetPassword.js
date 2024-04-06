@@ -26,8 +26,15 @@ function ForgetPassword() {
             <div className='container is-grouped is-grouped-centered mt-6 pt-6'>
                 <div className='box column is-half is-offset-one-quarter'>
                 <Form>
-                    <div className='field has-text-centered'>
-                         <label className='label mx-6'>Email Id</label>
+                <div className="field has-text-centered">
+              <h1 className="has-text-success is-size-2 is-uppercase">
+                Forget Password
+              </h1>
+              <p className="is-size-6 ">A Password Reset Link Will Be Sent To Your Email</p>
+            </div>
+
+                    <div className='field p-4'>
+                         <label className='label'>Email Id</label>
                     <div className='control'>
                         <Field type="email" className='input' name="email" placeholder="Email" />
                     </div>

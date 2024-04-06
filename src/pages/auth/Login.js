@@ -95,17 +95,17 @@ function Login() {
                 className="help is-danger"
               />
             </div>
-            <div className=" grid">
-              <div className=" cell"> 
-                <button type="submit" className="button is-primary">
+            <div className=" grid " >
+              <div className=" cell "> 
+                <button type="submit" className="button is-success ml-4">
                 SUBMIT
               </button>
               </div>
-             <div className=" cell"> 
+             <div className=" cell is-col-span-2 " > 
               <label className="label">
-                <div className="grid">
-                  <div className="cell"> <Link to="/forget_password" className="label mt-2">Forget Password</Link></div>
-                  <div className="cell"><Link to="/signup" className="label mt-2 ">
+                <div className="grid pb-2" >
+                  <div className="cell has-text-right" > <Link to="/forget_password" className="label mt-2">Forget Password</Link></div>
+                  <div className="cell pl-2" style={{borderLeft:"1px solid white"}}><Link to="/signup" className="label mt-2 ">
                   New User - Signup Now
                 </Link></div></div>
                 
