@@ -9,6 +9,7 @@ import WelcomePage from './pages/home/WelcomePage';
 import {useSelector} from 'react-redux';
 import LeaderBoard from './pages/leaderBoard/LeaderBoard';
 import ForgetPassword from './pages/auth/ForgetPassword';
+import ResetPassword from './pages/auth/ResetPassword';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     {isLoggedIn && <Route path='/homepage'><Homepage/></Route>}  
     {isPremium && <Route path='/leader_board'><LeaderBoard/></Route>}
     <Route path='/forget_password'><ForgetPassword/></Route>
+    <Route path='/reset-password/:uuid'><ResetPassword/></Route>
     </Switch>
     </div>
   );
