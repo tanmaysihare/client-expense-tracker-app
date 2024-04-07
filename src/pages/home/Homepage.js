@@ -9,11 +9,11 @@ import { buyPremium } from "../../store/PremiumMember";
 import Pagination from "./Pagination";
 
 function Homepage() {
+  const showPage = localStorage.getItem("showPage")
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [expensePerPage] = useState(5);
-
+  const [expensePerPage, setExpensePerPage] = useState( showPage );
   const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
   const dispatch = useDispatch();
   useEffect(()=>{
@@ -54,6 +54,12 @@ function Homepage() {
 
   const paginate = (pageNumber) =>{
      setCurrentPage(pageNumber);
+  }
+  const changeHandler = (e) =>{
+    if(e.target.value > 0){
+    localStorage.setItem("showPage",e.target.value);
+    }
+    setExpensePerPage(localStorage.getItem("showPage"));
   }
 
   return (
@@ -145,7 +151,9 @@ function Homepage() {
         </div>
       </Formik>
      </div>
-     <div className="cell container is-fluid mt-6 pt-4 px-1">
+     
+     <div className="cell container is-fluid px-1">
+     <div className="column is-2 is-gapless is-offset-8"><input type="number" className="input is-rounded is-small is-warning" onChange={(e)=>changeHandler(e)}  /></div>
       <ExpenseList expenses={currentExpenses} setExpenses={setExpenses} loading={loading} setLoading={setLoading}/>
       <div className="mb-5"><Pagination paginate={paginate} expensePerPage={expensePerPage} totalExpenses={expenses.length} currentPage={currentPage} /></div>
      </div>
