@@ -6,8 +6,14 @@ import { toast } from "sonner";
 import ExpenseList from "./ExpenseList";
 import { useSelector,useDispatch } from "react-redux";
 import { buyPremium } from "../../store/PremiumMember";
+import Pagination from "./Pagination";
+
 function Homepage() {
   const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [expensePerPage] = useState(5);
+
   const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
   const dispatch = useDispatch();
   useEffect(()=>{
@@ -23,12 +29,13 @@ function Homepage() {
   };
   const submitHandler = async (data) => {
     try{
-        
         const response = await axios.post("http://localhost:3001/expense",data,{headers:{"access-token":token}});
     
         toast.success(response.data.message);
+        setLoading(true);
         axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
             setExpenses(res.data);
+            setLoading(false);
         }).catch(err=> toast.error(err))
     }catch(error){
       console.log(error);
@@ -40,6 +47,15 @@ function Homepage() {
     description: Yup.string().required().min(3),
     category: Yup.string().required(),
   });
+
+  const indexOfLastExpense = currentPage * expensePerPage;
+  const indexOfFirstExpense = indexOfLastExpense - expensePerPage;
+  const currentExpenses = expenses.slice(indexOfFirstExpense,  indexOfLastExpense);
+
+  const paginate = (pageNumber) =>{
+     setCurrentPage(pageNumber);
+  }
+
   return (
     <div className="grid">
     <div className="container is-fluid cell">
@@ -130,8 +146,10 @@ function Homepage() {
       </Formik>
      </div>
      <div className="cell container is-fluid mt-6 pt-4 px-1">
-      <ExpenseList expenses={expenses} setExpenses={setExpenses}/>
+      <ExpenseList expenses={currentExpenses} setExpenses={setExpenses} loading={loading} setLoading={setLoading}/>
+      <div className="mb-5"><Pagination paginate={paginate} expensePerPage={expensePerPage} totalExpenses={expenses.length} currentPage={currentPage} /></div>
      </div>
+     
      </div>
   );
 }

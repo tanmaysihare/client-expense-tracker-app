@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 function ExpenseList(props) {
     const token = useSelector((state)=>state.Auth.token) || localStorage.getItem("token");
     useEffect(()=> {
-        
-        axios.get("http://localhost:3001/expense",{headers:{"access-token":token}}).then((res)=>{
-            
-           props.setExpenses(res.data);
-        }).catch(err=> toast.error(err))
+        const fetchExpenses = async()=>{
+            props.setLoading(true);
+            const res = await axios.get("http://localhost:3001/expense",{headers:{"access-token":token}});
+            props.setExpenses(res.data);
+            props.setLoading(false);
+        }
+        fetchExpenses();
     },[]);
-
+ 
     const deleteHandler = async(id)=>{
 
         try{
@@ -24,6 +26,7 @@ function ExpenseList(props) {
             toast.error(error);
         }
       };
+      if(props.loading) return <p>Loading...</p>
   return (
     <div >
        <div className="container is-fluid my-6 ">
