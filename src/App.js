@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import LeaderBoard from './pages/leaderBoard/LeaderBoard';
 import ForgetPassword from './pages/auth/ForgetPassword';
 import ResetPassword from './pages/auth/ResetPassword';
+import DownloadPage from './pages/download/DownloadPage';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Route path='/login'><Login/></Route>
     {isLoggedIn && <Route path='/homepage'><Homepage/></Route>}  
     {isPremium && <Route path='/leader_board'><LeaderBoard/></Route>}
+    {isPremium && <Route path='/download'><DownloadPage/></Route>}
     <Route path='/forget_password'><ForgetPassword/></Route>
     <Route path='/reset-password/:uuid'><ResetPassword/></Route>
     </Switch>

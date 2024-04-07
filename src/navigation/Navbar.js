@@ -77,6 +77,11 @@ function Navbar() {
                   Leader Board
                 </Link>
               )}
+              {isPremium && isLoggedIn && (
+                <Link to="/download" className="navbar-link">
+                  Report Download
+                </Link>
+              )}
             </div>
           </div>
           <div className="navbar-end">

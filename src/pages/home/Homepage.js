@@ -108,6 +108,12 @@ function Homepage() {
                   <option value="transportation" key="3">
                     Transportation
                   </option>
+                  <option value="Home_Expense" key="4">
+                    Home Expense
+                  </option>
+                  <option value="personal" key="5">
+                    personal Expense
+                  </option>
                 </Field>
               </div>
               <ErrorMessage
