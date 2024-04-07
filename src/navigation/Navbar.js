@@ -65,8 +65,9 @@ function Navbar() {
     >
       <div className="container">
         <div className="navbar-menu">
+          <div className="title is-3 mt-2 pt-2">Expense Tracker</div>
           <div className="navbar-start">
-            <div className="navbar-item">
+            <div className="navbar-item ">
               {isLoggedIn && (
                 <Link to="/homepage" className="navbar-link">
                   Home
