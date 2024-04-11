@@ -63,7 +63,7 @@ function Homepage() {
   }
 
   return (
-    <div className="grid">
+    <div className="columns is-mobile">
     <div className="container is-fluid cell">
       <Formik
         initialValues={initialValues}
@@ -152,7 +152,7 @@ function Homepage() {
       </Formik>
      </div>
      
-     <div className="cell container is-fluid px-1">
+     <div className="cell container is-fluid px-1 is-grouped">
      <div className="column is-2 is-gapless is-offset-8"><input type="number" className="input is-rounded is-small is-warning" onChange={(e)=>changeHandler(e)}  /></div>
       <ExpenseList expenses={currentExpenses} setExpenses={setExpenses} loading={loading} setLoading={setLoading}/>
       <div className="mb-5"><Pagination paginate={paginate} expensePerPage={expensePerPage} totalExpenses={expenses.length} currentPage={currentPage} /></div>

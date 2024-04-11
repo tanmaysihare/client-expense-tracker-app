@@ -29,8 +29,8 @@ function Login() {
        localStorage.setItem("isLoggedIn",response.data.success);
        localStorage.setItem("isPremium",response.data.isPremium);
     } catch (error) {
-      if (error.response.status === 401) {
-        toast.error(error.response.data.message);
+      if (error.response.status === 400) {
+        toast.error(error.response.data.error);
         
       } else {
         toast.err(error.response.data.message);

@@ -28,11 +28,11 @@ function ExpenseList(props) {
       };
       if(props.loading) return <p>Loading...</p>
   return (
-    <div >
-       <div className="container is-fluid my-6 ">
+    <div className='container is-fluid is-mobile '>
+       <div className="container box is-fluid my-6 ">
         {props.expenses.map((value,key)=>{
             return(
-                <div className=" grid ml-6 pl-6 box" key={key}>
+                <div className=" grid box level is-fluid is-mobile" key={key}>
                     <div className="cell">
                         <label className="label">Money</label>
                         <div>{value.money}</div>

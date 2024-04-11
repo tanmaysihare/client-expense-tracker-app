@@ -59,12 +59,12 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar has-background-danger-15"
+      className="navbar has-background-danger-15 is-0-mobile is-full-tablet is-full-desktop"
       role="navigation"
       aria-label="main navigation"
     >
-      <div className="container">
-        <div className="navbar-menu">
+      <div className="container is-is-full-mobile is-is-full-tablet is-is-full-desktop">
+        <div className="navbar-menu ">
           <div className="title is-3 mt-2 pt-2">Expense Tracker</div>
           <div className="navbar-start">
             <div className="navbar-item ">

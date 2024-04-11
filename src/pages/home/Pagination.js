@@ -7,7 +7,7 @@ const Pagination = ({expensePerPage,totalExpenses,paginate,currentPage}) => {
     }
   return (
     <nav className='pagination is-rounded is-centered'role="navigation" aria-label="pagination">
-      <ul class="pagination-list">
+      <ul className="pagination-list">
         {pageNumbers.map((number) => (
             <li key={number} className={number===currentPage?'pagination-link is-current':'pagination-link'}>
                 <span onClick={()=>paginate(number)}>{number}</span>
