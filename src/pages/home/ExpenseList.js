@@ -28,7 +28,7 @@ function ExpenseList(props) {
       };
       if(props.loading) return <p>Loading...</p>
   return (
-    <div className='container is-fluid is-mobile '>
+    <div className='container is-fluid is-mobile ' style={{padding:"50px"}}>
        <div className="container box is-fluid my-6 ">
         {props.expenses.map((value,key)=>{
             return(

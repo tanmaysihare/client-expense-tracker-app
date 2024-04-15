@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const [isActive, setIsActive] = useState(false);
   const isLoggedIn =
     useSelector((state) => state.Auth.isAuthenticated) ||
     localStorage.getItem("isLoggedIn");
@@ -48,7 +49,7 @@ function Navbar() {
       };
 
       const rzp1 = new window.Razorpay(options);
-     
+
       rzp1.open();
       toast.success("Payment Successful");
     } catch (error) {
@@ -56,16 +57,37 @@ function Navbar() {
       toast.error(error);
     }
   };
-
+  const toggleMenu = () => {
+    setIsActive(!isActive);
+  };
   return (
     <nav
-      className="navbar has-background-danger-15 is-0-mobile is-full-tablet is-full-desktop"
+      className="navbar has-background-danger-15"
       role="navigation"
       aria-label="main navigation"
     >
-      <div className="container is-is-full-mobile is-is-full-tablet is-is-full-desktop">
-        <div className="navbar-menu ">
-          <div className="title is-3 mt-2 pt-2">Expense Tracker</div>
+      <div className="container ">
+        <div className="navbar-brand">
+          <div
+            className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+            onClick={toggleMenu}
+            role="button"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarMenu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div id="navbarMenu"className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+          <div className="title is-size-3-touch is-size-2-desktop mt-2 pt-2">
+            Expense Tracker
+          </div>
+
           <div className="navbar-start">
             <div className="navbar-item ">
               {isLoggedIn && (
